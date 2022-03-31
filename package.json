@@ -3,14 +3,27 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
+    "@sanity/client": "^3.3.0",
+    "@sanity/image-url": "^1.0.1",
+    "firebase": "^9.6.10",
+    "formidable": "^2.0.1",
+    "framer-motion": "^6.2.8",
+    "mv": "^2.1.1",
     "next": "latest",
+    "next-auth": "^4.0.0-beta.7",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.28.1",
+    "react-icons": "^4.3.1",
+    "react-portable-text": "^0.4.3",
+    "react-spinners": "^0.11.0"
   },
   "devDependencies": {
+    "@types/formidable": "^2.0.4",
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.0",

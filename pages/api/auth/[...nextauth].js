@@ -1,6 +1,6 @@
-import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import { client } from '../../../lib/client';
+import NextAuth from 'next-auth'
+import GoogleProvider from 'next-auth/providers/google'
+import { client } from '../../../lib/client'
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -11,14 +11,14 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-  secret: process.env.NEXT_PUBLIC_SECRET_GOOGLE_CLIENT_ID,
+  secret: process.env.NEXT_PUBLIC_SECRET,
   callbacks: {
     async session({ session, token, user }) {
       session.user.username = session.user.name
         .split(' ')
         .join('')
-        .toLocaleLowerCase();
-      session.user.id = token.sub;
+        .toLocaleLowerCase()
+      session.user.id = token.sub
 
       const doc = {
         _id: session.user.id,
@@ -27,10 +27,10 @@ export default NextAuth({
         name: session.user.name,
         slug: session.user.username,
         image: session.user.image,
-      };
-      client.createIfNotExists(doc);
+      }
+      client.createIfNotExists(doc)
 
-      return session;
+      return session
     },
   },
-});
+})

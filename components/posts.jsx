@@ -1,12 +1,12 @@
-import Link from 'next/link';
-import React from 'react';
-import { urlFor } from '../lib/client';
+import Link from 'next/link'
+import React from 'react'
+import { urlFor } from '../lib/client'
 
 const Posts = ({ posts, borderBottom = true }) => {
   return (
     <div className={`${borderBottom && 'border-b'} border-gray-300`}>
       <div className="mx-auto max-w-7xl">
-        <div className="sm: grid grid-cols-1 gap-3 p-2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 py-6 px-2 sm:grid-cols-2 md:gap-6 md:p-6 lg:grid-cols-4">
           {posts.map((post) => (
             <Link key={post._id} href={`/post/${post.slug.current}`}>
               <div className="group cursor-pointer overflow-hidden rounded-lg border">
@@ -34,7 +34,7 @@ const Posts = ({ posts, borderBottom = true }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Posts;
+export default Posts

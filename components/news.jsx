@@ -2,20 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { PuffLoader } from 'react-spinners'
 
 const News = () => {
-  const apiKey = process.env.NEXT_PUBLIC_NEWS_API_KEY
+  const apiKey = process.env.NEXT_PUBLIC_RAPID_NEWS_KEY
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(async () => {
     setLoading(true)
-    const baseUrl = `https://newsapi.org/v2/top-headlines?country=id&apiKey=${apiKey}`
+    const baseUrl = `https://newscatcher.p.rapidapi.com/v1/latest_headlines?lang=id&topic=world&media=true`
 
-    const response = await fetch(baseUrl)
+    const response = await fetch(baseUrl, {
+      headers: {
+        'x-rapidapi-host': 'newscatcher.p.rapidapi.com',
+        'x-rapidapi-key': apiKey,
+      },
+    })
     const data = await response.json()
 
     setArticles(data.articles)
     setLoading(false)
   }, [])
+
+  console.log(articles)
 
   return (
     <div className="flex-shrink-0 basis-2/3">
@@ -32,7 +39,7 @@ const News = () => {
         articles.map((article, i) => (
           <div className="my-10 cursor-pointer px-6" key={i}>
             <a
-              href={article.url}
+              href={article.link}
               target="_blank"
               className="text-decoration-none"
             >
@@ -40,7 +47,7 @@ const News = () => {
                 <div className="basis-4/4 flex flex-col md:basis-3/4">
                   <div className="mb-2 flex items-center justify-start gap-2">
                     <img
-                      src={article.urlToImage}
+                      src={article.media}
                       className="h-5 w-5 rounded-full object-cover"
                     />
                     <p className="text-xs font-medium">{article.author}</p>
@@ -49,26 +56,26 @@ const News = () => {
                     {article.title}
                   </div>
                   <div className="font-sm mb-2 text-gray-400">
-                    {article.description?.slice(0, 70)}...
+                    {article.summary?.slice(0, 70)}...
                   </div>
                   <div className="flex items-center justify-start gap-1">
                     <p className="text-xs font-medium text-gray-400">
-                      {`${new Date(article.publishedAt).toLocaleString(
+                      {`${new Date(article.published_date).toLocaleString(
                         'default',
                         { month: 'short' }
-                      )} ${new Date(article.publishedAt).getDate()}`}{' '}
+                      )} ${new Date(article.published_date).getDate()}`}{' '}
                       •
                     </p>
                     <p className="text-xs font-medium text-gray-400">
                       6 Min Read •
                     </p>
                     <p className="cursor-pointer rounded-full bg-gray-100 py-1 px-2 text-xs font-medium text-gray-400 transition-all duration-150 ease-in-out hover:bg-gray-200">
-                      Typography
+                      News
                     </p>
                   </div>
                 </div>
                 <div className="hidden basis-1/4 md:block">
-                  <img src={article.urlToImage} alt="" />
+                  <img src={article.media} alt="" />
                 </div>
               </div>
             </a>
